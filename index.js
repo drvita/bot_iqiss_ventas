@@ -46,16 +46,12 @@ bot.on("newChatMembers", (ctx) => {
     : null;
   console.log(ctx);
   if (!username) {
-    username = ctx.new_chat_member.first_name
-      ? ctx.new_chat_member.first_name
-      : "";
-    username += ctx.new_chat_member.last_name
-      ? ` ${ctx.new_chat_member.last_name}`
-      : "";
+    username = ctx.from.first_name ? ctx.from.first_name : "";
+    username += ctx.from.last_name ? ` ${ctx.from.last_name}` : "";
   }
 
   return ctx.reply.text(
-    `Bienvenido al grupo ${username}, para ver mis comandos solo teclea /ayuda \n -> Teclea /registro si tienes interes en vender aqui.`,
+    `Bienvenido al grupo ${username}, para ver mis comandos solo teclea /ayuda\n\n-> Teclea /registro si tienes interes en vender aqui.`,
     { asReply: true }
   );
 });
@@ -64,16 +60,12 @@ bot.on("leftChatMember", (ctx) => {
     ? ctx.left_chat_member.username
     : null;
   if (!username) {
-    username = ctx.left_chat_member.first_name
-      ? ctx.left_chat_member.first_name
-      : "";
-    username += ctx.left_chat_member.last_name
-      ? ` ${ctx.left_chat_member.last_name}`
-      : "";
+    username = ctx.from.first_name ? ctx.from.first_name : "";
+    username += ctx.from.last_name ? ` ${ctx.from.last_name}` : "";
   }
   fs.appendFile(
     "log",
-    Date.now() + `-[Grupos] El usuario ${username}, se ha ido del grupo`,
+    Date.now() + `-[Grupos] El usuario ${username}, se ha ido del grupo\n`,
     (err) => {
       console.log(err);
     }
