@@ -51,7 +51,7 @@ bot.on("newChatMembers", (ctx) => {
   }
 
   return ctx.reply.text(
-    `Bienvenido al grupo ${username}, para ver mis comandos solo teclea /ayuda\n\n-> Teclea /registro si tienes interes en vender aqui.`,
+    `Bienvenido al grupo ${username}, para ver mis comandos solo teclea /ayuda\n\n-> Usa el comando /registro si tienes interes en vender aqui de manera automatizada.`,
     { asReply: true }
   );
 });
