@@ -44,6 +44,7 @@ bot.on("newChatMembers", (ctx) => {
   let username = ctx.new_chat_member.username
     ? ctx.new_chat_member.username
     : null;
+  console.log(ctx);
   if (!username) {
     username = ctx.new_chat_member.first_name
       ? ctx.new_chat_member.first_name
@@ -52,6 +53,7 @@ bot.on("newChatMembers", (ctx) => {
       ? ` ${ctx.new_chat_member.last_name}`
       : "";
   }
+
   return ctx.reply.text(
     `Bienvenido al grupo ${username}, para ver mis comandos solo teclea /ayuda \n -> Teclea /registro si tienes interes en vender aqui.`,
     { asReply: true }
