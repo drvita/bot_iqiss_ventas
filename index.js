@@ -5,7 +5,9 @@ const TeleBot = require("telebot"),
     comandSearch = require("./lib/buscar"),
     searchItem = new comandSearch(bot),
     comandRegister = require("./lib/registro"),
-    registerCustomer = new comandRegister(bot);
+    registerCustomer = new comandRegister(bot),
+    comandContact = require("./lib/contactos"),
+    contacts = new comandContact(bot);
 
 //Comandos
 bot.on(["/start", "/Start"], (ctx) => {
@@ -19,7 +21,8 @@ bot.on(["/ayuda", "/Ayuda"], (ctx) => {
         "/start - <i>Inicia el robot.</i>\n\n" +
         "/ayuda - <i>Muestra los comandos disponibles</i>\n\n" +
         "/buscar - <i>Busca un producto</i>\n\n" +
-        "/registro - <i>Registra usuarios como vendedor</i>\n\n" +
+        "/registro - <i>Registra usuarios como comerciante.</i>\n\n" +
+        "/contacto - <i>Buscar contactos</i>\n\n" +
         "/wa - <i>Crear un enlace de WhatsApp</i>", { parseMode: 'HTML' }
     );
 });
@@ -31,8 +34,11 @@ bot.on(["/registro", "/Registro", "/Registrar", "/registrar"], async(ctx) => {
         console.log(err);
     }
 });
-bot.on(["/buscar", "/Buscar", "Busco", "/busco"], (ctx) => {
+bot.on(["/buscar", "/Buscar", "/Busco", "/busco"], (ctx) => {
     return searchItem.itemInfo(ctx);
+});
+bot.on(["/contacto", "/Contacto", "/contactos", "/Contactos"], (ctx) => {
+    return contacts.searchContacts(ctx);
 });
 bot.on("/wa", (ctx) => {
     const text = ctx.text.toLowerCase().replace("/wa ", "").trim();
@@ -49,6 +55,7 @@ bot.on("newChatMembers", (ctx) => {
     let username = ctx.new_chat_member.username ?
         ctx.new_chat_member.username :
         null;
+    console.log(ctx);
     if (!username) {
         username = ctx.from.first_name ? ctx.from.first_name : "";
         username += ctx.from.last_name ? ` ${ctx.from.last_name}` : "";
